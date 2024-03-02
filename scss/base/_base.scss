@@ -12,6 +12,31 @@ body {
   font-size: 1.6rem;
   font-family: "Gordita", sans-serif;
   color: var(--text-color);
+  background: var(--body-bg);
+  overflow: overlay;
+}
+
+*::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #00000000;
+}
+
+*::-webkit-scrollbar-track-piece {
+  background-color: #00000000;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00000035;
+  border: 1px solid #ffffff40;
+  border-radius: 24px;
 }
 
 html,
@@ -24,12 +49,15 @@ a {
   color: inherit;
 }
 
+a,
+img,
 input,
 textarea,
 button,
 select {
   font-family: inherit;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {

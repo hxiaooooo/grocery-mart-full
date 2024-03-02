@@ -5,12 +5,12 @@
   align-items: center;
 }
 .header {
-  padding: 30px 0;
+  padding: 20px 0;
 
   background: var(--header-bg-color);
 
-  @include abstracts.breakpoint(md) {
-    padding: 20px 0;
+  @include abstracts.breakpoint(lg) {
+    box-shadow: 0px 20px 60px 10px var(--header-shadow-color);
   }
 
   @include abstracts.breakpoint(sm) {
@@ -19,46 +19,166 @@
 }
 
 .top-bar {
+  position: relative;
   @extend %flexItemCenter;
 
   @include abstracts.breakpoint(xl) {
     justify-content: space-between;
   }
-
-  &__more {
-    display: none;
-
-    @include abstracts.breakpoint(lg) {
-      display: block;
-    }
-  }
 }
 
 .navbar {
-  margin-left: 144px;
+  margin-left: 129px;
 
   @include abstracts.breakpoint(xl) {
-    margin-left: initial;
+    margin-left: 0;
   }
 
   @include abstracts.breakpoint(lg) {
+    position: fixed;
+    inset: 0 50% 0 0;
+    z-index: 9;
+
+    margin-left: initial;
+    padding: 40px 0;
+    border-radius: 0rem 20px 20px 0rem;
+
+    background: var(--navbar-bg-color);
+
+    translate: -100%;
+    transition: all 0.2s;
+
+    &.show {
+      translate: 0;
+      box-shadow: 0px 40px 90px 20px var(--nav-shadow-color);
+    }
+
+    &.show ~ &__overlay {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @include abstracts.breakpoint(md) {
+      padding: 20px 0;
+    }
+
+    @include abstracts.breakpoint(sm) {
+      inset: 0 30% 0 0;
+    }
+  }
+
+  &__overlay {
+    visibility: hidden;
+    opacity: 0;
+
+    @include abstracts.breakpoint(lg) {
+      position: fixed;
+      inset: 0;
+      z-index: 8;
+
+      transition: all 0.2s;
+
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__close-btn {
     display: none;
+
+    filter: var(--nav-btn-icon-color);
+
+    @include abstracts.breakpoint(lg) {
+      display: block;
+      margin-bottom: 10px;
+      margin-left: 40px;
+    }
+
+    @include abstracts.breakpoint(md) {
+      margin-left: 20px;
+      margin-bottom: 0;
+    }
   }
 
   &__list {
     @extend %flexItemCenter;
 
-    gap: 30px;
+    @include abstracts.breakpoint(lg) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      padding: 0 40px;
+
+      height: calc(100% - 124px);
+
+      overscroll-behavior: contain;
+      overflow-y: auto;
+    }
+
+    @include abstracts.breakpoint(md) {
+      padding: 0 20px;
+    }
+  }
+
+  &__arrow {
+    width: 12px;
+    height: 12px;
+
+    @include abstracts.breakpoint(lg) {
+      rotate: -90deg;
+      transition: rotate 0.3s;
+    }
+
+    filter: var(--nav-btn-icon-color);
+  }
+
+  &__item--active &__arrow {
+    rotate: 0deg;
+  }
+
+  &__item {
+    &:hover .dropdown {
+      display: block;
+    }
+
+    @include abstracts.breakpoint(lg) {
+      width: 100%;
+
+      &:hover .dropdown {
+        display: none;
+      }
+
+      &--active .dropdown {
+        display: block !important;
+      }
+    }
   }
 
   &__link {
     @extend %flexItemCenter;
 
+    height: 50px;
+    padding: 0 15px;
+
+    color: var(--nav-link-color);
     gap: 6px;
 
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 500;
     line-height: 1.47; /* 146.667% */
+
+    @include abstracts.breakpoint(lg) {
+      justify-content: space-between;
+
+      padding: 0;
+
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    @include abstracts.breakpoint(md) {
+      height: auto;
+      margin-top: 20px;
+    }
   }
 }
 
@@ -81,16 +201,6 @@
     border-radius: 8px;
     background: var(--top-act-group-bg-color);
     box-shadow: 0px 20px 60px 10px var(--top-act-group-shadow);
-
-    @include abstracts.breakpoint(md) {
-      display: none;
-    }
-  }
-
-  &__group--single {
-    @include abstracts.breakpoint(lg) {
-      display: none;
-    }
   }
 
   &__group--single &__btn {
@@ -134,5 +244,38 @@
 
     object-fit: cover;
     cursor: pointer;
+  }
+}
+
+.nav-btn {
+  align-items: center;
+  padding: 10px 0;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+    padding: 0 20px;
+  }
+
+  &__title {
+    margin-left: 15px;
+  }
+
+  &__qnt {
+    margin-left: auto;
+  }
+
+  &__title,
+  &__qnt {
+    color: var(--nav-link-color);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.47; /* 146.667% */
+  }
+
+  &__icon {
+    filter: var(--nav-btn-icon-color);
   }
 }
